@@ -22,17 +22,37 @@ module.exports = {
 
   getTopStoriesWithKeyword: function(keyword, callback) {
     topStoriesWithKeyword = [];
-    for (var i = 0; i < topStories.length; i++){
-      if (topStories[i].title.search(keyword) !== -1){
-        topStoriesWithKeyword.push(topStories[i]);
+    // for (var i = 0; i < topStories.length; i++){
+    //   if (topStories[i].title.search(keyword) !== -1){
+    //     topStoriesWithKeyword.push(topStories[i]);
+    //   }
+    // }
+    var options = {
+      url: 'http://hn.algolia.com/api/v1/search?query=' + keyword,
+      method: 'GET',
+      // params: {query: keyword}
+    }
+
+    request(options, function(error, response){
+      if (error) {
+        return;
       }
-    }
-    console.log(topStoriesWithKeyword.length);
-    if (topStoriesWithKeyword.length) {
-      callback(null, topStoriesWithKeyword);
-    } else {
-      callback(new Error('Top Stories with keyword not found!'));
-    }
+      var data = JSON.parse(response.body);
+      console.log("data length" + data.hits.length);
+      // console.log("")
+      for (var i = 0; i < data.hits.length; i ++){
+        topStoriesWithKeyword.push(data.hits[i]);
+        // console.log(data.hits[i]);
+      }
+      console.log("ketword sotries length" + topStoriesWithKeyword.length);
+      if (topStoriesWithKeyword.length) {
+        callback(null, topStoriesWithKeyword);
+      } else {
+        callback(new Error('Top Stories with keyword not found!'));
+      };
+    })
+    // console.log("what" + topStoriesWithKeyword.length);
+
   },
   // The top news stories data is retrieved from the Algolia API, however it does not include
   // Hacker News' ranking algorithm. The data retrieved from Algolia is sorted according to the
@@ -87,7 +107,7 @@ module.exports = {
           }
         }
         console.log("Top Stories Updated");
-        console.log(topStories[0]);
+        console.log("# of stories " + topStories.length);
       });
     });
   }
