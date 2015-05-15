@@ -25,6 +25,7 @@ angular.module('hack.personal', [])
 
   var init = function(){
     fetchUsers();
+    Links.getBookmarks();
   };
   
   var fetchUsers = function(){

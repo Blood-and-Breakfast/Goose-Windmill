@@ -139,6 +139,13 @@ html .left-container {
   color: white;
 }
 
+.spacer{
+  display: inline-block;
+  width: 10px;
+  height: 100%;
+  background-color: black;
+}
+
 .tabs{
   height: 30%;
   background-color: white;
@@ -149,13 +156,13 @@ html .left-container {
 }
 
 button.tab {
-   -webkit-transition: all 250 ease-in;
-  -moz-transition: all 250 ease-in;
-  -o-transition: all 250 ease-in;
-  -ms-transition: all 250 ease-in;
-  transition: all 250 ease-out;
+   -webkit-transition: all 600ms ease-out;
+  -moz-transition: all 600ms ease-out;
+  -o-transition: all 600ms ease-out;
+  -ms-transition: all 600ms ease-out;
+  transition: all 600ms ease-out;
   width: 100%;
-  height: 25%;
+  height: 33.33333333333%;
   display:block;
   text-decoration: none;
   font-size: 2em;
@@ -686,7 +693,7 @@ html .filterBar input {
   }
 
   button.tab{
-    height: 22.5%;
+    height: 30%;
   }
 
 }
