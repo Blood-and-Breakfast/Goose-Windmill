@@ -19,7 +19,7 @@ angular.module('hack.tabs', [])
   $scope.refresh = function(){
     Links.getTopStories();
     Links.getPersonalStories(Followers.following);
-    Links.getBookmarks();
+    //technically this needs bookmarks and maybe filters here
     $scope.angle += 360;
   };
 });
