@@ -29,6 +29,7 @@ angular.module('hack.personal', [])
   
   var fetchUsers = function(){
     Links.getPersonalStories($scope.users);
+    Links.getBookmarks();
   };
   
   init();

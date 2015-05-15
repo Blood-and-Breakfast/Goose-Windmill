@@ -11,7 +11,21 @@ angular.module('hack.bookmarks', [])
   $scope.addUser = function(username) {
     Followers.addFollower(username);
   };
-  
+
+  $scope.isBookmark = function(story) {
+    if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  $scope.addBookmark = function(story) {
+    Bookmarks.addBookmark(story);
+  };
+  $scope.removeBookmark = function(story) {
+    Bookmarks.removeBookmark(story);
+  };
+
   var init = function () {
     Links.getBookmarks();
   };
