@@ -33,6 +33,5 @@ angular.module('hack.topStories', [])
   };
 
   $scope.getData();
-  Links.getBookmarks();
 });
 

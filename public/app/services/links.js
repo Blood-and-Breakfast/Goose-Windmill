@@ -1,6 +1,6 @@
 angular.module('hack.linkService', [])
 
-.factory('Links', function($window, $http, $interval, Followers, Bookmarks) {
+.factory('Links', function($window, $http, $interval, Followers) {
   var personalStories = [];
   var topStories = [];
   var bookmarkStories = [];
@@ -87,9 +87,6 @@ angular.module('hack.linkService', [])
       bookmarkStories.splice(0, bookmarkStories.length);
       angular.forEach(resp.data, function (story) {
         bookmarkStories.push(story);
-        if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
-        Bookmarks.bookmarks.push(story.objectID);
-        }
       });
     });
   };
