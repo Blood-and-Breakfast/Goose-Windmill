@@ -205,7 +205,7 @@ angular.module('hack.followService', [])
 
 angular.module('hack.linkService', [])
 
-.factory('Links', ["$window", "$http", "$interval", "Followers", function($window, $http, $interval, Followers) {
+.factory('Links', ["$window", "$http", "$interval", "Followers", "Bookmarks", function($window, $http, $interval, Followers, Bookmarks) {
   var personalStories = [];
   var topStories = [];
   var bookmarkStories = [];
@@ -292,6 +292,9 @@ angular.module('hack.linkService', [])
       bookmarkStories.splice(0, bookmarkStories.length);
       angular.forEach(resp.data, function (story) {
         bookmarkStories.push(story);
+        if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
+        Bookmarks.bookmarks.push(story.objectID);
+        }
       });
     });
   };
@@ -344,11 +347,9 @@ angular.module('hack.auth', [])
     Auth.signin($scope.user)
       .then(function (followers, bookmarks) {
         $window.localStorage.setItem('com.hack', $scope.user.username);
-        $window.localStorage.setItem('hfBookmarks', bookmarks);
         $window.localStorage.setItem('hfUsers', followers);
 
         Followers.localToArr();
-        Bookmarks.localToArr();
 
         $scope.loggedIn = true;
         $scope.user = {};
@@ -425,6 +426,7 @@ angular.module('hack.personal', [])
   
   var fetchUsers = function(){
     Links.getPersonalStories($scope.users);
+    Links.getBookmarks();
   };
   
   init();
@@ -444,13 +446,26 @@ angular.module('hack.bookmarks', [])
   $scope.addUser = function(username) {
     Followers.addFollower(username);
   };
-  
+
+  $scope.isBookmark = function(story) {
+    if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  $scope.addBookmark = function(story) {
+    Bookmarks.addBookmark(story);
+  };
+  $scope.removeBookmark = function(story) {
+    Bookmarks.removeBookmark(story);
+  };
+
   var init = function () {
     Links.getBookmarks();
   };
   init();
 }]);
-
 angular.module('hack.tabs', [])
 
 .controller('TabsController', ["$scope", "$location", "$window", "Links", "Followers", function ($scope, $location, $window, Links, Followers) {
@@ -472,7 +487,7 @@ angular.module('hack.tabs', [])
   $scope.refresh = function(){
     Links.getTopStories();
     Links.getPersonalStories(Followers.following);
-    //technically this needs bookmarks and maybe filters here
+    Links.getBookmarks();
     $scope.angle += 360;
   };
 }]);
@@ -512,6 +527,7 @@ angular.module('hack.topStories', [])
   };
 
   $scope.getData();
+  Links.getBookmarks();
 }]);
 
 
