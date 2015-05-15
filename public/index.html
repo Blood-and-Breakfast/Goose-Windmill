@@ -15,22 +15,21 @@
        <div class="tabs leftSectionHolder" ng-controller="TabsController">
 
           <div class="tabs-header leftSectionHeaderHolder">
-            <div class="tabs-header-text leftSectionHeaderText">Select</div>
+            <div class="tabs-header-text leftSectionHeaderText">Filters</div>
           </div>
 
           <div class="tabs-content leftSectionHolderContent">
-               <button ng-class="currentTab === 'all' ? 'tab activeTab': 'tab inactiveTab'" href="#/" ng-click="changeTab('all')"><div class="active" ng-show="currentTab === 'all'">
-               <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
-            </div>All</button>
-               <button ng-class="currentTab === 'personal' ? 'tab activeTab': 'tab inactiveTab'" href="#/personal" ng-click="changeTab('personal')"><div class="active" ng-show="currentTab === 'personal'">
-               <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
-            </div>Personal</button>
-                <button ng-class="currentTab === 'bookmarks' ? 'tab activeTab': 'tab inactiveTab'" href="#/bookmarks" ng-click="changeTab('bookmarks')"><div class="active" ng-show="currentTab === 'bookmarks'">
-               <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
-            </div>Bookmarks</button>
-              <button ng-class="currentTab === 'keyword' ? 'tab activeTab': 'tab inactiveTab'" href="#/keyword" ng-click="changeTab('keyword')"><div class="active" ng-show="currentTab === 'keyword'">
-                 <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
-            </div>Filters</button>
+             <button ng-class="currentTab === 'all' ? 'tab activeTab': 'tab inactiveTab'" href="#/" ng-click="changeTab('all')"><div class="active" ng-show="currentTab === 'all'">
+             <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>All</button>
+             <button ng-class="currentTab === 'personal' ? 'tab activeTab': 'tab inactiveTab'" href="#/personal" ng-click="changeTab('personal')"><div class="active" ng-show="currentTab === 'personal'">
+             <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>Personal</button>
+              <button ng-class="currentTab === 'bookmarks' ? 'tab activeTab': 'tab inactiveTab'" href="#/bookmarks" ng-click="changeTab('bookmarks')"><div class="active" ng-show="currentTab === 'bookmarks'">
+             <div class="refresh" degrees="angle" rotate ng-click="refresh()"></div>
+          </div>Bookmarks</button>
+
+
           </div>
 
      </div><div class="currently-following leftSectionHolder" ng-controller="CurrentlyFollowingController">
@@ -92,7 +91,7 @@
                 <button>create account</button>
               </form>
             </div>
-            <p class="auth-info">Sign in to save your followers</p>
+            <p class="auth-info">Sign in to save your followers and bookmarks</p>
           </div>
 
           <div class="loggedOutDiv" ng-show="loggedIn">

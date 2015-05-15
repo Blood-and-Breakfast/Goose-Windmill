@@ -205,7 +205,7 @@ angular.module('hack.followService', [])
 
 angular.module('hack.linkService', [])
 
-.factory('Links', ["$window", "$http", "$interval", "Followers", function($window, $http, $interval, Followers) {
+.factory('Links', ["$window", "$http", "$interval", "Followers", "Bookmarks", function($window, $http, $interval, Followers, Bookmarks) {
   var personalStories = [];
   var topStories = [];
   var bookmarkStories = [];
@@ -292,6 +292,9 @@ angular.module('hack.linkService', [])
       bookmarkStories.splice(0, bookmarkStories.length);
       angular.forEach(resp.data, function (story) {
         bookmarkStories.push(story);
+        if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
+        Bookmarks.bookmarks.push(story.objectID);
+        }
       });
     });
   };
@@ -344,11 +347,9 @@ angular.module('hack.auth', [])
     Auth.signin($scope.user)
       .then(function (followers, bookmarks) {
         $window.localStorage.setItem('com.hack', $scope.user.username);
-        $window.localStorage.setItem('hfBookmarks', bookmarks);
         $window.localStorage.setItem('hfUsers', followers);
 
         Followers.localToArr();
-        Bookmarks.localToArr();
 
         $scope.loggedIn = true;
         $scope.user = {};
@@ -421,6 +422,7 @@ angular.module('hack.personal', [])
 
   var init = function(){
     fetchUsers();
+    Links.getBookmarks();
   };
   
   var fetchUsers = function(){
@@ -444,13 +446,26 @@ angular.module('hack.bookmarks', [])
   $scope.addUser = function(username) {
     Followers.addFollower(username);
   };
-  
+
+  $scope.isBookmark = function(story) {
+    if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  $scope.addBookmark = function(story) {
+    Bookmarks.addBookmark(story);
+  };
+  $scope.removeBookmark = function(story) {
+    Bookmarks.removeBookmark(story);
+  };
+
   var init = function () {
     Links.getBookmarks();
   };
   init();
 }]);
-
 angular.module('hack.tabs', [])
 
 .controller('TabsController', ["$scope", "$location", "$window", "Links", "Followers", function ($scope, $location, $window, Links, Followers) {
@@ -472,7 +487,7 @@ angular.module('hack.tabs', [])
   $scope.refresh = function(){
     Links.getTopStories();
     Links.getPersonalStories(Followers.following);
-    //technically this needs bookmarks and maybe filters here
+    Links.getBookmarks();
     $scope.angle += 360;
   };
 }]);
@@ -512,42 +527,12 @@ angular.module('hack.topStories', [])
   };
 
   $scope.getData();
-}]);
-
-
-
-angular.module('hack.topStoriesWithKeyword', [])
-
-.controller('TopStoriesWithKeywordController', ["$scope", "$window", "Links", "Followers", function ($scope, $window, Links, Followers) {
-  angular.extend($scope, Links);
-  $scope.stories = Links.topStoriesWithKeyword;
-  $scope.perPage = 30;
-  $scope.index = $scope.perPage;
-  $scope.keyword;
-  $scope.checked = 'start';
-
-  // now i want to add a scope variable that is equal to the value of an input box
-  // this might need to be a global variable so that its value can be set in the topStories page and still exist here
-  // an alternative would be to click a link that takes us to the keyword page with the keyword initially set to ''
-
-  $scope.currentlyFollowing = Followers.following;
-
-  $scope.getData = function() {
-    Links.getTopStoriesWithKeyword($scope.keyword);
-    // $scope.checked = $scope.keyword;
-  };
-
-  $scope.addUser = function(username) {
-    Followers.addFollower(username);
-  };
-
-  $scope.getData(''); // the argument here will eventually be set by the input box
+  Links.getBookmarks();
 }]);
 
 
 angular.module('hack', [
   'hack.topStories',
-  'hack.topStoriesWithKeyword',
   'hack.personal',
   'hack.bookmarks',
   'hack.bookmarkService',
@@ -573,10 +558,6 @@ angular.module('hack', [
     .when('/bookmarks', {
       templateUrl: 'app/bookmarks/bookmarks.html',
       controller: 'BookmarksController'
-    })
-    .when('/keyword', {
-      templateUrl: 'app/topStoriesWithKeyword/topStoriesWithKeyword.html',
-      controller: 'TopStoriesWithKeywordController'
     })
     .otherwise({
       redirectTo: '/'

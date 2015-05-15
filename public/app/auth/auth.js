@@ -11,11 +11,9 @@ angular.module('hack.auth', [])
     Auth.signin($scope.user)
       .then(function (followers, bookmarks) {
         $window.localStorage.setItem('com.hack', $scope.user.username);
-        $window.localStorage.setItem('hfBookmarks', bookmarks);
         $window.localStorage.setItem('hfUsers', followers);
 
         Followers.localToArr();
-        Bookmarks.localToArr();
 
         $scope.loggedIn = true;
         $scope.user = {};
