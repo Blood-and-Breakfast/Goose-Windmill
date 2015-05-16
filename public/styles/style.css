@@ -511,6 +511,7 @@ html .followed-user{
   width: 100%;
   background-color: #404040;
   padding: 2px;
+  text-align: right;
 }
 
 .filterBarTitle{
