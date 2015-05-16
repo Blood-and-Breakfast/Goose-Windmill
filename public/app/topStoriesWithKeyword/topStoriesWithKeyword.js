@@ -1,11 +1,12 @@
 
 angular.module('hack.topStoriesWithKeyword', [])
 
-.controller('TopStoriesWithKeywordController', function ($scope, $window, Links, Followers) {
+.controller('TopStoriesWithKeywordController', function ($scope, $window, Links, Followers, Bookmarks, Auth) {
   angular.extend($scope, Links);
   $scope.stories = Links.topStoriesWithKeyword;
   $scope.perPage = 30;
   $scope.index = $scope.perPage;
+  $scope.loggedIn = Auth.isAuth();
   $scope.keyword;
   $scope.checked = 'start';
 
@@ -22,6 +23,22 @@ angular.module('hack.topStoriesWithKeyword', [])
 
   $scope.addUser = function(username) {
     Followers.addFollower(username);
+  };
+
+  $scope.isBookmark = function(story) {
+    if (Bookmarks.bookmarks.indexOf(story.objectID) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  $scope.addBookmark = function(story) {
+    Bookmarks.addBookmark(story);
+  };
+
+  $scope.removeBookmark = function(story) {
+    Bookmarks.removeBookmark(story);
   };
 
   $scope.getData(''); // the argument here will eventually be set by the input box
