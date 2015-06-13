@@ -11,7 +11,7 @@ See the UI in action on our [Heroku deployment](http://hackerfeed.herokuapp.com/
 
   - __Product Owner__: Kenny Tran
   - __Scrum Master__: Matthew Rourke
-  - __Development Team Members__: Jennifer Bland, Siddharth Sukumar
+  - __Development Team Members__: Jennifer Bland, Siddharth Sukumar, Lindsay Pond, Cooper Buckingham, William Kilmer, Angela Wang, Vincent Nocera
 
 ## Table of Contents
 
