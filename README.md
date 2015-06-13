@@ -1,7 +1,11 @@
 [![Stories in Ready](https://badge.waffle.io/goose-windmill/goose-windmill.png?label=ready&title=Ready)](https://waffle.io/goose-windmill/goose-windmill)
 # Goose-Windmill 
 
-> Improve Hacker News UX by automating a stream of user specified content.
+> A fresh, responsive and fully featured UI for Hacker News
+
+![hack feed screenshot](/readme_assets/hackfeedscreenshot.png)
+
+See the UI in action on our [Heroku deployment](http://hackerfeed.herokuapp.com/#/)
 
 ## Team
 
