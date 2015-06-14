@@ -3,9 +3,9 @@
 
 > A fresh, responsive and fully featured UI for Hacker News
 
-![hack feed screenshot](/readme_assets/hackfeedscreenshot.png)
+![hack feed screenshot](/readme_assets/hfscreenshot.png)
 
-See the UI in action on our [Heroku deployment](http://hackerfeed.herokuapp.com/#/)
+See the UI in action on our [Heroku deployment](http://hackfeed.herokuapp.com/#/)
 
 ## Team
 
